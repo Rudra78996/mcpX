@@ -1,0 +1,37 @@
+{
+  "name": "mcpx",
+  "version": "1.0.0",
+  "description": "A reusable and CLI-accessible Model Context Protocol (MCP) server for mcpX.",
+  "main": "build/index.js",
+  "module": "build/index.js",
+  "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./build/index.js",
+      "require": "./build/index.js"
+    }
+  },
+  "bin": {
+    "browsermcp-server": "build/index.js"
+  },
+  "files": [
+    "build/",
+    "src/"
+  ],
+  "scripts": {
+    "build": "tsc && chmod 755 build/index.js",
+    "prepare": "npm run build"
+  },
+  "keywords": ["mcp", "modelcontextprotocol", "server", "mcpX"],
+  "author": "Rudra Pratap Singh",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.15.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.13",
+    "typescript": "^5.8.3"
+  }
+}
