@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
@@ -19,6 +20,19 @@ export function createServer() {
                 {
                     type: "text",
                     text: `sum of ${a} and ${b} is ${a + b}`,
+                },
+            ],
+        };
+    });
+    server.tool("snapshot", "This Function provide the dom snapshot of the current page", {
+        url: z.string().url(),
+    }, async ({ url }) => {
+        const snapshot = "this is the test snapshot of the page";
+        return {
+            content: [
+                {
+                    type: "text",
+                    text: `This is the ${snapshot} snapshot of the current page`,
                 },
             ],
         };
