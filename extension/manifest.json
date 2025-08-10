@@ -3,7 +3,7 @@
   "name": "MCPX Connector",
   "version": "1.0",
   "description": "Connects to MCPX WS server and handles snapshot requests",
-  "permissions": ["tabs", "scripting", "activeTab"],
+  "permissions": ["tabs", "scripting", "activeTab", "offscreen"],
   "background": {
     "service_worker": "background.js"
   },

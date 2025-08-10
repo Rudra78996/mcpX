@@ -5,12 +5,33 @@ import { z } from "zod";
 export function createServer() {
   const server = new McpServer({
     name: "mcpX",
-    version: "1.0.0",
+    version: "1.1.0",
     capabilities: {
       resources: {},
       tools: {},
     },
   });
+
+  async function postJson(url: string, body: any, timeoutMs = 10000): Promise<any> {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        signal: controller.signal,
+      });
+      const text = await res.text();
+      try {
+        return JSON.parse(text);
+      } catch {
+        return { status: res.status, text };
+      }
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
 
   server.tool(
     "get-x-factor",
@@ -38,33 +59,66 @@ export function createServer() {
     },
     async ({ url }: { url: string }) => {
       try {
-        const res = await fetch("http://localhost:3000/snapshot", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ url }),
-        });
-        const data = await res.json();
-        console.error("Fetched data for snapshot:", data.toString());
-        return {
-          content: [
-            {
-              type: "text",
-              text: `This is the data : ${data} for the snapshot of ${url}`,
-            },
-          ],
-        };
-      } catch (err) {
-        console.error("Error fetching snapshot data:", err);
-        return {
-          content: [
-            {
-              type: "text",
-              text: "This is a placeholder for the snapshot data ",
-            },
-          ],
-        };
+        const data = await postJson("http://localhost:3000/snapshot", { url });
+        return { content: [{ type: "text", text: JSON.stringify({ url, data }) }] };
+      } catch (err: any) {
+        return { content: [{ type: "text", text: `snapshot error: ${String(err?.message || err)}` }] };
+      }
+    }
+  );
+
+  server.tool(
+    "open-tab",
+    "Open a new browser tab to the given URL. Pass active=true to focus it.",
+    { url: z.string().url(), active: z.boolean().optional() },
+    async ({ url, active }: { url: string; active?: boolean }) => {
+      try {
+        const data = await postJson("http://localhost:3000/open-tab", { url, active });
+        return { content: [{ type: "text", text: JSON.stringify(data) }] };
+      } catch (err: any) {
+        return { content: [{ type: "text", text: `open-tab error: ${String(err?.message || err)}` }] };
+      }
+    }
+  );
+
+  server.tool(
+    "tab-click",
+    "Click an element in the current tab by CSS selector. Optionally pass tabId.",
+    { selector: z.string(), tabId: z.number().optional() },
+    async ({ selector, tabId }: { selector: string; tabId?: number }) => {
+      try {
+        const data = await postJson("http://localhost:3000/tab-click", { selector, tabId });
+        return { content: [{ type: "text", text: JSON.stringify(data) }] };
+      } catch (err: any) {
+        return { content: [{ type: "text", text: `tab-click error: ${String(err?.message || err)}` }] };
+      }
+    }
+  );
+
+  server.tool(
+    "tab-back",
+    "Go back in the active tab's history. Optionally pass tabId.",
+    { tabId: z.number().optional() },
+    async ({ tabId }: { tabId?: number }) => {
+      try {
+        const data = await postJson("http://localhost:3000/tab-back", { tabId });
+        return { content: [{ type: "text", text: JSON.stringify(data) }] };
+      } catch (err: any) {
+        return { content: [{ type: "text", text: `tab-back error: ${String(err?.message || err)}` }] };
+      }
+    }
+  );
+
+  server.tool(
+    "tab-forward",
+    "Go forward in the active tab's history. Optionally pass tabId.",
+    { tabId: z.number().optional() },
+    async ({ tabId }: { tabId?: number }) => {
+      try {
+        const data = await postJson("http://localhost:3000/tab-forward", { tabId });
+        return { content: [{ type: "text", text: JSON.stringify(data) }] };
+      } catch (err: any) {
+        return { content: [{ type: "text", text: `tab-forward error: ${String(err?.message || err)}` }] };
       }
     }
   );

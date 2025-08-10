@@ -1,28 +1,29 @@
 {
   "name": "@rpx_/mcpx",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A reusable and CLI-accessible Model Context Protocol (MCP) server for mcpX.",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.js"
     }
   },
   "bin": {
-    "mcpX": "./dist/index.js"
+    "mcpx": "./dist/cli.js"
   },
   "files": [
     "dist/",
     "src/"
   ],
   "scripts": {
-    "build": "tsc && node -e \"const fs=require('fs'); const content=fs.readFileSync('dist/index.js','utf8'); fs.writeFileSync('dist/index.js','#!/usr/bin/env node\\n'+content);\"",
-    "start": "node dist/index.js",
+    "build": "tsc && node -e \"const fs=require('fs'); const p='dist/cli.js'; if (fs.existsSync(p)) { const s=fs.readFileSync(p,'utf8'); if(!s.startsWith('#!/')) fs.writeFileSync(p,'#!/usr/bin/env node\\n'+s); }\"",
+    "start": "node dist/cli.js",
     "prepublishOnly": "npm run build",
-    "inspect": "npx @modelcontextprotocol/inspector node dist/index.js"
+    "inspect": "npx @modelcontextprotocol/inspector node dist/cli.js"
   },
   "keywords": [
     "mcp",
@@ -36,6 +37,9 @@
   "author": "Rudra Pratap Singh",
   "license": "ISC",
   "type": "module",
+  "engines": {
+    "node": ">=18.18"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.15.1",
     "express": "^5.1.0",
@@ -44,7 +48,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rudra78996/mcpX"
+    "url": "git+https://github.com/Rudra78996/mcpX",
+    "directory": "server"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",

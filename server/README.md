@@ -1,17 +1,17 @@
-# mcpx
+# @rpx_/mcpx
 
 A reusable and CLI-accessible Model Context Protocol (MCP) server for mcpX.
 
 ## Installation
 
 ```sh
-npm install mcpx
+npm install @rpx_/mcpx
 ```
 
 ## Usage as a Library
 
 ```js
-import { createServer, startServer } from 'mcpx';
+import { createServer, startServer } from '@rpx_/mcpx';
 
 // Programmatically create and start the server
 startServer();
@@ -22,7 +22,7 @@ startServer();
 After installing globally or linking:
 
 ```sh
-npx browsermcp-server
+npx @rpx_/mcpx
 ```
 
 ## Features
@@ -32,7 +32,7 @@ npx browsermcp-server
 ## Development
 
 - Build: `npm run build`
-- Prepare for publish: `npm run prepare`
+- Publish: `npm publish --access public`
 
 ## License
 ISC
