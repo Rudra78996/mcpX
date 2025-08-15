@@ -1,0 +1,445 @@
+export const metadata = {
+  title: "Configuration",
+  description:
+    "Configure MCPX server and browser extension for optimal performance.",
+};
+
+# Configuration
+
+Learn how to configure MCPX server and browser extension for optimal performance and security.
+
+## Server Configuration
+
+The MCPX server can be configured using a configuration file, environment variables, or command-line arguments.
+
+### Configuration File
+
+Create a `mcpx.config.json` file in your project directory:
+
+```json
+{
+  "server": {
+    "port": 3000,
+    "host": "localhost",
+    "cors": {
+      "enabled": true,
+      "origins": ["*"]
+    }
+  },
+  "security": {
+    "requireAuth": false,
+    "apiKey": null,
+    "rateLimiting": {
+      "enabled": true,
+      "windowMs": 60000,
+      "max": 100
+    }
+  },
+  "browser": {
+    "defaultTimeout": 30000,
+    "retryAttempts": 3,
+    "retryDelay": 1000
+  },
+  "logging": {
+    "level": "info",
+    "file": "./logs/mcpx.log",
+    "console": true
+  }
+}
+```
+
+### Environment Variables
+
+Set configuration options using environment variables:
+
+```bash
+# Server settings
+export MCPX_PORT=3000
+export MCPX_HOST=localhost
+
+# Security settings
+export MCPX_REQUIRE_AUTH=false
+export MCPX_API_KEY=your-secret-key
+
+# Browser settings
+export MCPX_DEFAULT_TIMEOUT=30000
+export MCPX_RETRY_ATTEMPTS=3
+
+# Logging
+export MCPX_LOG_LEVEL=info
+export MCPX_LOG_FILE=./logs/mcpx.log
+```
+
+### Command Line Arguments
+
+Override configuration with command-line arguments:
+
+```bash
+mcpx-server --port 3000 --host localhost --timeout 30000 --log-level debug
+```
+
+## Configuration Options
+
+### Server Options
+
+| Option           | Type   | Default     | Description                    |
+| ---------------- | ------ | ----------- | ------------------------------ |
+| `port`           | number | 3000        | Port number for the server     |
+| `host`           | string | "localhost" | Host address to bind to        |
+| `maxConnections` | number | 100         | Maximum concurrent connections |
+
+### Security Settings
+
+```json
+{
+  "security": {
+    "requireAuth": true,
+    "apiKey": "your-secure-api-key",
+    "allowedIPs": ["127.0.0.1", "192.168.1.0/24"],
+    "tokenExpiry": 3600,
+    "rateLimiting": {
+      "enabled": true,
+      "windowMs": 60000, // 1 minute
+      "max": 100, // 100 requests per window
+      "skipSuccessfulRequests": false
+    }
+  }
+}
+```
+
+### Browser Options
+
+```json
+{
+  "browser": {
+    "defaultTimeout": 30000, // Default operation timeout (ms)
+    "pageLoadTimeout": 60000, // Page load timeout (ms)
+    "elementTimeout": 10000, // Element wait timeout (ms)
+    "retryAttempts": 3, // Number of retry attempts
+    "retryDelay": 1000, // Delay between retries (ms)
+    "headless": false, // Run browser in headless mode
+    "userAgent": "custom-agent" // Custom user agent string
+  }
+}
+```
+
+### Logging Configuration
+
+```json
+{
+  "logging": {
+    "level": "info", // error, warn, info, debug, trace
+    "console": true, // Log to console
+    "file": {
+      "enabled": true,
+      "path": "./logs/mcpx.log",
+      "maxSize": "10m", // Max file size
+      "maxFiles": 5, // Max number of files
+      "format": "json" // json or text
+    }
+  }
+}
+```
+
+## Browser Extension Configuration
+
+Configure the browser extension through its options page or programmatically.
+
+### Extension Options
+
+Access extension options by:
+
+1. Right-clicking the extension icon
+2. Selecting "Options" or "Preferences"
+
+#### Connection Settings
+
+```javascript
+{
+  "server": {
+    "url": "ws://localhost:3000",
+    "autoConnect": true,
+    "reconnectAttempts": 5,
+    "reconnectDelay": 2000
+  }
+}
+```
+
+#### Security Settings
+
+```javascript
+{
+  "security": {
+    "allowedDomains": ["*"],
+    "requireConfirmation": true,
+    "logActivity": true
+  }
+}
+```
+
+### Programmatic Configuration
+
+Configure the extension via JavaScript:
+
+```javascript
+// Set extension options
+chrome.storage.local.set(
+  {
+    serverUrl: "ws://localhost:3000",
+    autoConnect: true,
+    requireConfirmation: false,
+  },
+  () => {
+    console.log("Extension configured");
+  }
+);
+
+// Get extension options
+chrome.storage.local.get(["serverUrl", "autoConnect"], (result) => {
+  console.log("Current configuration:", result);
+});
+```
+
+## Environment-Specific Configurations
+
+### Development
+
+```json
+{
+  "server": {
+    "port": 3000,
+    "host": "localhost"
+  },
+  "security": {
+    "requireAuth": false,
+    "rateLimiting": {
+      "enabled": false
+    }
+  },
+  "browser": {
+    "defaultTimeout": 10000
+  },
+  "logging": {
+    "level": "debug",
+    "console": true,
+    "file": {
+      "enabled": false
+    }
+  }
+}
+```
+
+### Production
+
+```json
+{
+  "server": {
+    "port": 3000,
+    "host": "0.0.0.0"
+  },
+  "security": {
+    "requireAuth": true,
+    "apiKey": "${MCPX_API_KEY}",
+    "rateLimiting": {
+      "enabled": true,
+      "max": 50
+    },
+    "allowedIPs": ["10.0.0.0/8"]
+  },
+  "browser": {
+    "defaultTimeout": 30000,
+    "retryAttempts": 3
+  },
+  "logging": {
+    "level": "warn",
+    "console": false,
+    "file": {
+      "enabled": true,
+      "path": "/var/log/mcpx/server.log"
+    }
+  }
+}
+```
+
+### Testing
+
+```json
+{
+  "server": {
+    "port": 3001,
+    "host": "localhost"
+  },
+  "security": {
+    "requireAuth": false,
+    "rateLimiting": {
+      "enabled": false
+    }
+  },
+  "browser": {
+    "defaultTimeout": 5000,
+    "retryAttempts": 1
+  },
+  "logging": {
+    "level": "error",
+    "console": true
+  }
+}
+```
+
+## Advanced Configuration
+
+### Custom Middleware
+
+Add custom middleware to the server:
+
+```javascript
+// middleware.js
+module.exports = {
+  requestLogger: (req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next();
+  },
+
+  authCheck: (req, res, next) => {
+    const apiKey = req.headers["x-api-key"];
+    if (!apiKey || apiKey !== process.env.MCPX_API_KEY) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    next();
+  },
+};
+```
+
+Configuration:
+
+```json
+{
+  "middleware": {
+    "enabled": true,
+    "customMiddleware": "./middleware.js"
+  }
+}
+```
+
+### Database Configuration
+
+For persistent storage:
+
+```json
+{
+  "database": {
+    "type": "sqlite",
+    "connection": {
+      "filename": "./data/mcpx.db"
+    },
+    "pool": {
+      "min": 0,
+      "max": 10
+    }
+  }
+}
+```
+
+## Configuration Management
+
+### Multiple Environments
+
+Use different config files for different environments:
+
+```bash
+# Development
+mcpx-server --config config/development.json
+
+# Staging
+mcpx-server --config config/staging.json
+
+# Production
+mcpx-server --config config/production.json
+```
+
+### Configuration Templates
+
+Create configuration templates with variable substitution:
+
+```json
+{
+  "server": {
+    "port": "${PORT:3000}",
+    "host": "${HOST:localhost}"
+  },
+  "security": {
+    "apiKey": "${API_KEY:}",
+    "requireAuth": "${REQUIRE_AUTH:false}"
+  }
+}
+```
+
+Variables are resolved from environment variables with optional defaults.
+
+### Validation
+
+Validate your configuration before starting:
+
+```bash
+mcpx-server --validate-config
+```
+
+Example validation output:
+
+```
+✓ Server configuration is valid
+✓ Security settings are properly configured
+✓ Browser options are valid
+⚠ Warning: Debug logging enabled in production
+✗ Error: Invalid rate limiting configuration
+```
+
+## Configuration Best Practices
+
+1. **Use environment variables for secrets** - Don't put API keys in config files
+2. **Validate configuration** - Always validate before deploying
+3. **Use different configs per environment** - Separate dev, staging, and production
+4. **Monitor configuration changes** - Log when configuration is updated
+5. **Document custom settings** - Maintain documentation for custom configurations
+
+## Troubleshooting Configuration
+
+### Common Issues
+
+**Port Already in Use**
+
+```bash
+Error: listen EADDRINUSE :::3000
+```
+
+Solution: Change the port number or kill the process using the port.
+
+**Invalid JSON**
+
+```bash
+Error: Unexpected token } in JSON at position 123
+```
+
+Solution: Use a JSON validator to check your configuration file.
+
+**Missing Permissions**
+
+```bash
+Error: EACCES: permission denied, open '/var/log/mcpx/server.log'
+```
+
+Solution: Ensure the process has write permissions to the log directory.
+
+### Configuration Debugging
+
+Enable configuration debugging:
+
+```bash
+mcpx-server --debug-config
+```
+
+This will output the resolved configuration before starting the server.
+
+---
+
+_For more examples and troubleshooting, see our [Examples](/docs/examples) and [Troubleshooting](/docs/troubleshooting) pages._

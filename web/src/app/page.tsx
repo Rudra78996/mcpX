@@ -1,22 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Bot } from "lucide-react";
-
 export default function Home() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-grid bg-gradient-to-b from-black to-black/80">
-      {/* Decorative background glows */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 -translate-x-1/2 -top-20 size-[900px] rounded-full bg-white/30 dark:bg-white/10 blur-3xl [mask-image:radial-gradient(50%_50%_at_50%_0%,black,transparent)]" />
-        <div className="absolute inset-0 [mask-image:radial-gradient(80%_60%_at_50%_40%,black,transparent)] shadow-[inset_0_0_180px_rgba(0,0,0,0.12)] dark:shadow-[inset_0_0_200px_rgba(255,255,255,0.10)]" />
-      </div>
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Radial gradient background */}
+      <div className="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
+
       {/* Header */}
-      <header className="flex items-center justify-between max-w-6xl mx-auto px-6 py-6">
+      <header className="relative z-10 flex items-center justify-between max-w-6xl mx-auto px-6 py-6">
         <div className="flex items-center gap-3">
-          <div className="size-8 rounded-lg bg-black text-white dark:bg-white dark:text-black grid place-items-center">
+          <div className="size-8 rounded-lg  bg-white text-black grid place-items-center">
             <span className="text-xs font-bold">M</span>
           </div>
-          <span className="text-sm font-medium tracking-tight">
+          <span className="text-sm font-medium tracking-tight  ">
             Browser MCPX
           </span>
         </div>
@@ -33,6 +29,12 @@ export default function Home() {
           >
             How it works
           </a>
+          <Link
+            href="/docs"
+            className="opacity-80 hover:opacity-100 transition"
+          >
+            Documentation
+          </Link>
           <a href="#faq" className="opacity-80 hover:opacity-100 transition">
             FAQ
           </a>
@@ -55,21 +57,19 @@ export default function Home() {
       </header>
 
       {/* Hero */}
-      <main className="max-w-6xl mx-auto px-6 pt-14 pb-24">
+      <main className="relative z-10 max-w-6xl mx-auto px-6 pt-14 pb-24">
         <div className="text-center text-white">
-          <div className="mx-auto size-16 rounded-2xl  text-black grid place-items-center">
-            <span className="text-lg font-extrabold ">
-              {/* <Bot color="white"/> */}
-              <Image
-                src={"/t.png"}
-                alt="Logo"
-                width={64}
-                height={64}
-              />
+          <div className="mx-auto size-16 rounded-2xl text-black grid place-items-center">
+            <span className="text-lg font-extrabold">
+              <Image src={"/t.png"} alt="Logo" width={64} height={64} />
             </span>
           </div>
-          <h1 className="mt-8 text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
-            Browser MCPX
+          <h1 className="mt-8  md:text-6xl  tracking-tight text-center text-3xl font-medium  text-gray-50 sm:text-6xl">
+            Browser{" "}
+            <span className="animate-text-gradient inline-flex bg-gradient-to-r   bg-[200%_auto] bg-clip-text leading-tight text-transparent from-neutral-100 via-slate-400 to-neutral-400">
+              {" "}
+              McpX
+            </span>
           </h1>
           <p className="mt-4 text-base sm:text-lg text-white/70 max-w-2xl mx-auto">
             Connect AI apps to your browser and automate tests and repetitive
@@ -83,7 +83,7 @@ export default function Home() {
               Add to Chrome
             </Link>
             <Link
-              href="#docs"
+              href="/docs"
               className="rounded-full border border-white/15 text-white/90 px-5 h-11 grid place-items-center text-sm sm:text-base hover:bg-white/10"
             >
               Documentation
@@ -141,7 +141,7 @@ export default function Home() {
             <h2 className="text-2xl font-semibold tracking-tight">
               How it works
             </h2>
-            <ol className="mt-4 space-y-3 text-sm text-black/80 dark:text-white/80">
+            <ol className="mt-4 space-y-3 text-sm text-white/80">
               <li>1. Install the extension and grant minimal permissions.</li>
               <li>
                 2. Connect your AI app via MCP tools exposed by the extension.
@@ -153,7 +153,7 @@ export default function Home() {
             </ol>
             <div className="mt-6 flex gap-3">
               <Link
-                href="#docs"
+                href="/docs"
                 className="rounded-full border border-black/10 dark:border-white/15 px-4 h-10 grid place-items-center text-sm hover:bg-black/5 dark:hover:bg-white/10"
               >
                 Read docs
@@ -197,7 +197,7 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/15 py-10 mt-10">
+      <footer className="relative z-10 border-t border-white/15 py-10 mt-10">
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/80">
           <span className="opacity-70">
             © {new Date().getFullYear()} Browser MCPX

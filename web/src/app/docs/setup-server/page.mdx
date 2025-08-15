@@ -1,0 +1,63 @@
+export const metadata = {
+  title: 'Set up MCP server',
+  description: 'Install and configure the Browser MCP server in clients like Cursor and VS Code.',
+};
+
+# Set up MCP server
+
+## Prerequisites
+
+- Node.js 18+
+
+## Add MCP server
+
+### Cursor
+
+Add to your settings JSON:
+
+```json
+{
+  "mcpServers": {
+    "mcpx": {
+      "command": "npx",
+      "args": ["@rpx_/mcpx"],
+      "env": {}
+    }
+  }
+}
+```
+
+### VS Code (Cline)
+
+```json
+{
+  "cline.mcpServers": {
+    "mcpx": {
+      "command": "npx",
+      "args": ["@rpx_/mcpx"]
+    }
+  }
+}
+```
+
+## Run the server
+
+One-off run:
+
+```bash
+npx @rpx_/mcpx
+```
+
+Programmatic run:
+
+```bash
+node -e "import('@rpx_/mcpx').then(m=>m.startServer())"
+```
+
+Bridge (HTTP/WS used by tools):
+
+```bash
+node -e "import('@rpx_/mcpx').then(m=>m.httpBridgeServer.listen(3000,()=>console.log('bridge on 3000')))"
+```
+
+

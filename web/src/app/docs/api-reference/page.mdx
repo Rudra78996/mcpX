@@ -1,0 +1,317 @@
+export const metadata = {
+  title: "API Reference",
+  description: "Complete API reference for MCPX browser automation functions.",
+};
+
+# API Reference
+
+Complete reference for MCPX server API and browser automation functions.
+
+## Connection
+
+The MCPX server provides a WebSocket-based API following the Model Context Protocol (MCP) specification.
+
+```javascript
+const ws = new WebSocket("ws://localhost:3000");
+```
+
+## Message Format
+
+All messages follow the MCP protocol format:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "unique-request-id",
+  "method": "method_name",
+  "params": {
+    // method-specific parameters
+  }
+}
+```
+
+## Browser Functions
+
+### Navigation
+
+#### `open_tab`
+
+Opens a new browser tab with the specified URL.
+
+**Parameters:**
+
+- `url` (string, required): The URL to open
+- `active` (boolean, optional): Whether to focus the new tab (default: true)
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "1",
+  "method": "open_tab",
+  "params": {
+    "url": "https://example.com",
+    "active": true
+  }
+}
+```
+
+#### `tab_back`
+
+Navigates back in the browser history.
+
+**Parameters:**
+
+- `tabId` (number, optional): Specific tab ID (uses active tab if not provided)
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "2",
+  "method": "tab_back",
+  "params": {
+    "tabId": 123
+  }
+}
+```
+
+#### `tab_forward`
+
+Navigates forward in the browser history.
+
+**Parameters:**
+
+- `tabId` (number, optional): Specific tab ID (uses active tab if not provided)
+
+### Element Interaction
+
+#### `tab_click`
+
+Clicks an element on the current page.
+
+**Parameters:**
+
+- `selector` (string, required): CSS selector for the element to click
+- `tabId` (number, optional): Specific tab ID (uses active tab if not provided)
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "3",
+  "method": "tab_click",
+  "params": {
+    "selector": "#submit-button",
+    "tabId": 123
+  }
+}
+```
+
+#### `tab_type`
+
+Types text into an input element.
+
+**Parameters:**
+
+- `selector` (string, required): CSS selector for the input element
+- `text` (string, required): Text to type
+- `tabId` (number, optional): Specific tab ID (uses active tab if not provided)
+- `clear` (boolean, optional): Clear existing text before typing (default: false)
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "4",
+  "method": "tab_type",
+  "params": {
+    "selector": "#username",
+    "text": "user@example.com",
+    "clear": true
+  }
+}
+```
+
+### Page Information
+
+#### `snapshot`
+
+Takes a snapshot of the current page DOM.
+
+**Parameters:**
+
+- `url` (string, required): URL of the page to snapshot
+
+**Returns:**
+
+- `dom` (string): HTML content of the page
+- `title` (string): Page title
+- `url` (string): Current URL
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "5",
+  "method": "snapshot",
+  "params": {
+    "url": "https://example.com"
+  }
+}
+```
+
+## Error Handling
+
+All API calls return standard MCP error responses for failures:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "request-id",
+  "error": {
+    "code": -32000,
+    "message": "Element not found",
+    "data": {
+      "selector": "#missing-element",
+      "details": "No element matches the provided selector"
+    }
+  }
+}
+```
+
+### Error Codes
+
+| Code     | Description                                     |
+| -------- | ----------------------------------------------- |
+| `-32000` | Server error (element not found, timeout, etc.) |
+| `-32601` | Method not found                                |
+| `-32602` | Invalid parameters                              |
+| `-32603` | Internal error                                  |
+
+## Rate Limiting
+
+The server implements rate limiting to prevent abuse:
+
+- **Default limit**: 100 requests per minute per connection
+- **Burst limit**: 10 requests per second
+- **Configuration**: Adjustable in server configuration
+
+## Authentication
+
+Optional authentication can be enabled:
+
+```json
+{
+  "security": {
+    "requireAuth": true,
+    "apiKey": "your-api-key"
+  }
+}
+```
+
+Include the API key in requests:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "1",
+  "method": "open_tab",
+  "params": {
+    "url": "https://example.com",
+    "apiKey": "your-api-key"
+  }
+}
+```
+
+## JavaScript Client Example
+
+```javascript
+class MCPXClient {
+  constructor(url = "ws://localhost:3000") {
+    this.ws = new WebSocket(url);
+    this.requestId = 0;
+    this.pendingRequests = new Map();
+
+    this.ws.onmessage = (event) => {
+      const response = JSON.parse(event.data);
+      const request = this.pendingRequests.get(response.id);
+      if (request) {
+        request.resolve(response);
+        this.pendingRequests.delete(response.id);
+      }
+    };
+  }
+
+  async call(method, params = {}) {
+    const id = (++this.requestId).toString();
+    const message = {
+      jsonrpc: "2.0",
+      id,
+      method,
+      params,
+    };
+
+    return new Promise((resolve, reject) => {
+      this.pendingRequests.set(id, { resolve, reject });
+      this.ws.send(JSON.stringify(message));
+
+      setTimeout(() => {
+        if (this.pendingRequests.has(id)) {
+          this.pendingRequests.delete(id);
+          reject(new Error("Request timeout"));
+        }
+      }, 30000);
+    });
+  }
+
+  async openTab(url, active = true) {
+    return this.call("open_tab", { url, active });
+  }
+
+  async clickElement(selector, tabId) {
+    return this.call("tab_click", { selector, tabId });
+  }
+}
+
+// Usage
+const client = new MCPXClient();
+await client.openTab("https://example.com");
+await client.clickElement("#login-button");
+```
+
+## Python Client Example
+
+```python
+import asyncio
+import websockets
+import json
+
+class MCPXClient:
+    def __init__(self, url="ws://localhost:3000"):
+        self.url = url
+        self.request_id = 0
+
+    async def call(self, method, params=None):
+        if params is None:
+            params = {}
+
+        self.request_id += 1
+        message = {
+            "jsonrpc": "2.0",
+            "id": str(self.request_id),
+            "method": method,
+            "params": params
+        }
+
+        async with websockets.connect(self.url) as websocket:
+            await websocket.send(json.dumps(message))
+            response = await websocket.recv()
+            return json.loads(response)
+
+    async def open_tab(self, url, active=True):
+        return await self.call("open_tab", {"url": url, "active": active})
+
+# Usage
+client = MCPXClient()
+await client.open_tab("https://example.com")
+```
+
+---
+
+_For more examples and advanced usage, see our [Examples page](/docs/examples)._

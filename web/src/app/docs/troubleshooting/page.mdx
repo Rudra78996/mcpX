@@ -1,0 +1,14 @@
+export const metadata = {
+  title: 'Troubleshooting',
+  description: 'Fix common problems when connecting and running.',
+};
+
+# Troubleshooting
+
+- **Extension not connected**: Check `http://localhost:3000/ws-status`. Restart the bridge and reload the extension.
+- **Port in use**: Change the bridge port in your start command and update any hardcoded URLs.
+- **Command not found**: Ensure Node.js 18+ is installed and on PATH.
+- **Client cannot find tools**: Confirm your client config points to the correct command and that the server is running.
+- **Windows quoting**: When using `node -e` inline commands, escape quotes appropriately or run from a small script.
+
+
