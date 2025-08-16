@@ -1,3 +1,3 @@
-export { createServer, startServer } from "./mcp.js";
-export { default as httpBridgeServer } from "./server.js";
+#!/usr/bin/env node
+export {};
 //# sourceMappingURL=index.d.ts.map

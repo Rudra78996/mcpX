@@ -1,0 +1,1 @@
+{"version":3,"file":"snapshot.d.ts","sourceRoot":"","sources":["../../src/tools/snapshot.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,CAAC,EAAE,MAAM,KAAK,CAAC;AAGxB,eAAO,MAAM,kBAAkB;;;CAG9B,CAAC;AAEF,wBAAsB,YAAY,CAAC,EACjC,GAAG,EACH,kBAAkB,GACnB,EAAE;IACD,GAAG,EAAE,MAAM,CAAC;IACZ,kBAAkB,CAAC,EAAE,OAAO,CAAC;CAC9B,gBAgBA;AAED,eAAO,MAAM,eAAe;;;;;;;;CAM3B,CAAC"}

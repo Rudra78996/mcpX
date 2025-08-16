@@ -13,17 +13,18 @@
     }
   },
   "bin": {
-    "mcpx": "./dist/cli.js"
+    "mcpx": "./dist/index.js"
   },
   "files": [
     "dist/",
     "src/"
   ],
   "scripts": {
-    "build": "tsc && node -e \"const fs=require('fs'); const p='dist/cli.js'; if (fs.existsSync(p)) { const s=fs.readFileSync(p,'utf8'); if(!s.startsWith('#!/')) fs.writeFileSync(p,'#!/usr/bin/env node\\n'+s); }\"",
-    "start": "node dist/cli.js",
-    "prepublishOnly": "npm run build",
-    "inspect": "npx @modelcontextprotocol/inspector node dist/cli.js"
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js",
+    "mcp": "node dist/index.js ",
+    "inspect": "npx @modelcontextprotocol/inspector node dist/index.js",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "mcp",
