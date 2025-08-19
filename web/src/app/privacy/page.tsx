@@ -59,11 +59,11 @@ export default function PrivacyPolicyPage() {
 
           <h2>1. Introduction</h2>
 
-          <p>
-            This Privacy Policy describes how Browser mcpX ("we", "our", or
-            "us") collects, uses, and protects information when you use our
-            browser extension and related services. This policy applies to:
-          </p>
+                     <p>
+             This Privacy Policy describes how Browser mcpX (&quot;we&quot;, &quot;our&quot;, or
+             &quot;us&quot;) collects, uses, and protects information when you use our
+             browser extension and related services. This policy applies to:
+           </p>
 
           <ul>
             <li>The Browser mcpX Chrome extension</li>
@@ -210,7 +210,7 @@ export default function PrivacyPolicyPage() {
           <h3>5.3 Legal Requirements</h3>
           <p>
             Information may be disclosed if required by law, court order, or
-            governmental request, or to protect our rights and users' safety.
+            governmental request, or to protect our rights and users&apos; safety.
           </p>
 
           <h2>6. Security Measures</h2>
@@ -271,7 +271,7 @@ export default function PrivacyPolicyPage() {
             compliance with applicable data protection laws.
           </p>
 
-          <h2>9. Children's Privacy</h2>
+          <h2>9. Children&apos;s Privacy</h2>
 
           <p>
             Browser mcpX is not intended for children under 13 years of age. We
@@ -292,12 +292,12 @@ export default function PrivacyPolicyPage() {
             <li>Extension notifications</li>
             <li>Website announcements</li>
             <li>
-              Email notifications (if you've provided contact information)
+              Email notifications (if you&apos;ve provided contact information)
             </li>
           </ul>
 
           <p>
-            The "Last updated" date at the top of this policy indicates when
+                         The &quot;Last updated&quot; date at the top of this policy indicates when
             changes were last made.
           </p>
 
@@ -353,7 +353,7 @@ export default function PrivacyPolicyPage() {
               <strong>CCPA</strong>: California Consumer Privacy Act
             </li>
             <li>
-              <strong>Chrome Web Store Policies</strong>: Google's privacy and
+                             <strong>Chrome Web Store Policies</strong>: Google&apos;s privacy and
               security requirements
             </li>
           </ul>
