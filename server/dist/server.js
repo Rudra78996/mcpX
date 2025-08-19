@@ -19,15 +19,45 @@ function getExtensionSocket() {
 }
 wss.on("connection", (ws) => {
     console.error("[WS] Incoming connection");
+    // Set up ping interval for this connection
+    const pingInterval = setInterval(() => {
+        if (ws.readyState === WebSocket.OPEN) {
+            ws.ping();
+        }
+        else {
+            clearInterval(pingInterval);
+        }
+    }, 30000); // Send ping every 30 seconds
     ws.on("message", (message) => {
-        const data = JSON.parse(message.toString());
-        if (data.type === "register" && data.role === "extension") {
-            extensionSocket = ws;
-            ws.send(JSON.stringify({ type: "registered", role: "extension" }));
-            console.error("[WS] Extension registered via WebSocket");
+        try {
+            const data = JSON.parse(message.toString());
+            if (data.type === "register" && data.role === "extension") {
+                extensionSocket = ws;
+                ws.send(JSON.stringify({ type: "registered", role: "extension" }));
+                console.error("[WS] Extension registered via WebSocket");
+            }
+            // Handle heartbeat messages
+            if (data.type === "ping") {
+                ws.send(JSON.stringify({ type: "pong", timestamp: data.timestamp }));
+            }
+            if (data.type === "pong") {
+                console.log("Received pong from extension");
+            }
+        }
+        catch (error) {
+            console.error("[WS] Error parsing message:", error);
         }
     });
-    ws.on("close", () => {
+    ws.on("pong", () => {
+        console.log("Received pong response from extension");
+    });
+    ws.on("error", (error) => {
+        console.error("[WS] WebSocket error:", error);
+        clearInterval(pingInterval);
+    });
+    ws.on("close", (code, reason) => {
+        console.error(`[WS] Connection closed: ${code} - ${reason}`);
+        clearInterval(pingInterval);
         if (ws === extensionSocket) {
             extensionSocket = null;
             console.error("[WS] Extension disconnected");
@@ -70,6 +100,22 @@ app.get("/ws-status", (_req, res) => {
                 : state === WebSocket.CLOSING
                     ? "closing"
                     : "unknown";
-    res.json({ connected: status === "open", status });
+    res.json({
+        connected: status === "open",
+        status,
+        timestamp: Date.now(),
+        clients: wss.clients.size
+    });
+});
+app.get("/health", (_req, res) => {
+    res.json({
+        status: "healthy",
+        uptime: process.uptime(),
+        timestamp: Date.now(),
+        websocket: {
+            connected: extensionSocket?.readyState === WebSocket.OPEN,
+            clients: wss.clients.size
+        }
+    });
 });
 export default server;

@@ -28,7 +28,7 @@ export declare const allToolDefs: ({
     description: string;
     schema: {
         type: import("zod").ZodEnum<["time", "element", "navigation"]>;
-        value: import("zod").ZodUnion<[import("zod").ZodNumber, import("zod").ZodString]>;
+        value: import("zod").ZodAny;
         timeout: import("zod").ZodDefault<import("zod").ZodOptional<import("zod").ZodNumber>>;
         tabId: import("zod").ZodOptional<import("zod").ZodNumber>;
     };

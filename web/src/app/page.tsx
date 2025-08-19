@@ -203,8 +203,8 @@ export default function Home() {
             © {new Date().getFullYear()} Browser MCPX
           </span>
           <div className="flex items-center gap-4 opacity-80">
-            <Link href="#privacy">Privacy</Link>
-            <Link href="#terms">Terms</Link>
+            <Link href="/privacy">Privacy</Link>
+            <Link href="/docs">Documentation</Link>
           </div>
         </div>
       </footer>

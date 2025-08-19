@@ -1,22 +1,40 @@
 {
   "manifest_version": 3,
-  "name": "MCPX Connector",
-  "version": "1.0",
-  "description": "Connects to MCPX WS server and handles snapshot requests",
-  "permissions": [
-    "tabs",
-    "scripting",
-    "activeTab",
-    "offscreen",
-    "debugger",
-    "tabCapture"
-  ],
+  "name": "mcpX Browser Automation",
+  "version": "1.0.0",
+  "description": "Professional browser automation extension that connects to mcpX server for seamless web interaction and testing workflows.",
+  "author": "Rudra Kumar",
+  "homepage_url": "https://github.com/Rudra78996/mcpX",
+  "permissions": ["tabs", "scripting", "activeTab"],
+  "optional_permissions": ["offscreen", "debugger", "tabCapture"],
   "background": {
     "service_worker": "background.js",
     "type": "module"
   },
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_title": "mcpX Browser Automation",
+    "default_icon": {
+      "16": "public/icons8-click-24.png",
+      "32": "public/icons8-click-48.png",
+      "48": "public/icons8-click-48.png",
+      "128": "public/icons8-click-96.png"
+    }
   },
-  "host_permissions": ["<all_urls>"]
+  "icons": {
+    "16": "public/icons8-click-24.png",
+    "32": "public/icons8-click-48.png",
+    "48": "public/icons8-click-48.png",
+    "128": "public/icons8-click-96.png"
+  },
+  "optional_host_permissions": ["<all_urls>"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
