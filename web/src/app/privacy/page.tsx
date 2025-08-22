@@ -59,11 +59,12 @@ export default function PrivacyPolicyPage() {
 
           <h2>1. Introduction</h2>
 
-                     <p>
-             This Privacy Policy describes how Browser mcpX (&quot;we&quot;, &quot;our&quot;, or
-             &quot;us&quot;) collects, uses, and protects information when you use our
-             browser extension and related services. This policy applies to:
-           </p>
+          <p>
+            This Privacy Policy describes how Browser mcpX (&quot;we&quot;,
+            &quot;our&quot;, or &quot;us&quot;) collects, uses, and protects
+            information when you use our browser extension and related services.
+            This policy applies to:
+          </p>
 
           <ul>
             <li>The Browser mcpX Chrome extension</li>
@@ -210,7 +211,8 @@ export default function PrivacyPolicyPage() {
           <h3>5.3 Legal Requirements</h3>
           <p>
             Information may be disclosed if required by law, court order, or
-            governmental request, or to protect our rights and users&apos; safety.
+            governmental request, or to protect our rights and users&apos;
+            safety.
           </p>
 
           <h2>6. Security Measures</h2>
@@ -297,8 +299,8 @@ export default function PrivacyPolicyPage() {
           </ul>
 
           <p>
-                         The &quot;Last updated&quot; date at the top of this policy indicates when
-            changes were last made.
+            The &quot;Last updated&quot; date at the top of this policy
+            indicates when changes were last made.
           </p>
 
           <h2>11. Contact Information</h2>
@@ -353,8 +355,8 @@ export default function PrivacyPolicyPage() {
               <strong>CCPA</strong>: California Consumer Privacy Act
             </li>
             <li>
-                             <strong>Chrome Web Store Policies</strong>: Google&apos;s privacy and
-              security requirements
+              <strong>Chrome Web Store Policies</strong>: Google&apos;s privacy
+              and security requirements
             </li>
           </ul>
 
