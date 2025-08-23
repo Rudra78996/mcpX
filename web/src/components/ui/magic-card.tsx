@@ -60,6 +60,3 @@ export function MagicCard({
 }
 
 
-
-
-

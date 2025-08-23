@@ -198,7 +198,7 @@ export default function Home() {
               />
               <div className="relative z-10 w-full h-full [mask-image:linear-gradient(to_bottom,black_0%,black_94%,transparent_100%)]">
                 <video
-                  src="https://manim-ai-xi.vercel.app/assets/demo-1-CcWhytm0.mp4"
+                  src="./demo-2.mp4"
                   autoPlay
                   loop
                   playsInline
@@ -613,8 +613,9 @@ export default function Home() {
                 mcpX is an automation layer for your browser powered by the
                 Model Context Protocol (MCP). It combines an MCP server with a
                 Chrome extension, allowing you to send prompts (like{" "}
-                <em>&ldquo;test this website&rdquo;</em> or <em>&ldquo;get console errors&rdquo;</em>)
-                and have them executed directly inside your browser.
+                <em>&ldquo;test this website&rdquo;</em> or{" "}
+                <em>&ldquo;get console errors&rdquo;</em>) and have them
+                executed directly inside your browser.
               </AccordionContent>
             </AccordionItem>
 
@@ -639,9 +640,9 @@ export default function Home() {
               <AccordionContent className="text-muted-foreground pt-4">
                 Not at all! mcpX is designed to be prompt-driven. You can simply
                 type commands like <em>&ldquo;Run a speed audit&rdquo;</em> or{" "}
-                <em>&ldquo;Check login form errors&rdquo;</em>, and mcpX executes them
-                automatically. Advanced users can also extend it with custom
-                scripts if needed.
+                <em>&ldquo;Check login form errors&rdquo;</em>, and mcpX
+                executes them automatically. Advanced users can also extend it
+                with custom scripts if needed.
               </AccordionContent>
             </AccordionItem>
 
