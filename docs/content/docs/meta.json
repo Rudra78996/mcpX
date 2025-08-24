@@ -1,0 +1,11 @@
+{
+  "title": "Documentation",
+  "pages": [
+    "welcome",
+    "installation",
+    "setup-server",
+    "setup-extension",
+    "start-automating",
+    "troubleshooting"
+  ]
+}

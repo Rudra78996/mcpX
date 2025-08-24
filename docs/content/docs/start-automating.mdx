@@ -1,0 +1,199 @@
+---
+title: Start automating
+description: Begin automating your browser with MCPX and AI applications.
+---
+
+# Start automating
+
+Now that you have MCPX set up, let's start automating your browser with AI applications.
+
+## Basic Commands
+
+### Opening Pages
+
+```
+Open google.com
+Navigate to https://example.com
+Go to the GitHub homepage
+```
+
+### Clicking Elements
+
+```
+Click the search button
+Click on the link that says "Sign up"
+Click the submit button
+```
+
+### Typing Text
+
+```
+Type "hello world" in the search box
+Enter my email address in the email field
+Fill out the form with my details
+```
+
+### Data Extraction
+
+```
+Get the page title
+Extract all links from this page
+Take a screenshot of the current page
+Get the text content from the main article
+```
+
+## Example Workflows
+
+### Web Search Automation
+
+```
+1. Open google.com
+2. Type "MCPX browser automation" in the search box
+3. Click the search button
+4. Take a screenshot of the results
+5. Extract the titles of the first 5 results
+```
+
+### Form Filling
+
+```
+1. Navigate to https://example.com/contact
+2. Fill in the name field with "John Doe"
+3. Enter "john@example.com" in the email field
+4. Type "Hello, this is a test message" in the message field
+5. Click the submit button
+```
+
+### E-commerce Automation
+
+```
+1. Go to an online store
+2. Search for "laptop"
+3. Click on the first product
+4. Extract the product name and price
+5. Add the item to cart
+6. Take a screenshot of the cart
+```
+
+## AI Integration Examples
+
+### With Claude Desktop
+
+```json
+{
+  "mcpServers": {
+    "mcpx": {
+      "command": "mcpx-server",
+      "args": ["--port", "3000"]
+    }
+  }
+}
+```
+
+Then in Claude:
+
+```
+Please open reddit.com and find the top 3 posts from r/programming today
+```
+
+### With Custom MCP Clients
+
+```python
+import mcp_client
+
+client = mcp_client.connect("http://localhost:3000")
+
+# Open a webpage
+client.navigate("https://news.ycombinator.com")
+
+# Extract headlines
+headlines = client.extract_text("h1, h2, h3")
+
+# Take screenshot
+screenshot = client.screenshot()
+```
+
+## Best Practices
+
+### 1. Start Simple
+
+Begin with basic navigation and clicking before attempting complex workflows.
+
+### 2. Use Descriptive Commands
+
+Instead of:
+
+```
+Click button
+```
+
+Use:
+
+```
+Click the blue "Submit" button at the bottom of the form
+```
+
+### 3. Handle Timing
+
+Some pages need time to load:
+
+```
+Open example.com
+Wait for the page to load completely
+Then click the menu button
+```
+
+### 4. Error Handling
+
+Plan for common issues:
+
+```
+Try to click the login button
+If that fails, look for a "Sign In" link instead
+```
+
+## Advanced Features
+
+### Conditional Logic
+
+```
+If there's a cookie banner, click "Accept"
+Otherwise, proceed to the main navigation
+```
+
+### Multiple Tabs
+
+```
+Open example.com in a new tab
+Switch to the first tab
+Compare content between tabs
+```
+
+### Data Processing
+
+```
+Extract all product prices from this page
+Calculate the average price
+Save the results to a file
+```
+
+## Monitoring and Debugging
+
+### Enable Debug Mode
+
+Set the extension to debug mode to see detailed logs of all actions.
+
+### Check Server Logs
+
+Monitor the MCP server console for error messages and performance data.
+
+### Use Browser Dev Tools
+
+The browser's developer tools can help identify element selectors and page structure.
+
+## Next Steps
+
+- Explore more complex automation workflows
+- Integrate with your preferred AI application
+- Check [troubleshooting](/docs/troubleshooting) for help with issues
+- Review the API reference for advanced features

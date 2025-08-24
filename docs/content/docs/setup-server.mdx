@@ -1,0 +1,94 @@
+---
+title: Set up MCP server
+description: Configure the MCPX MCP server for browser automation.
+---
+
+# Set up MCP server
+
+Configure the MCPX MCP server to enable communication between AI applications and your browser.
+
+## Configuration File
+
+Create a configuration file for your MCP server:
+
+```json
+{
+  "server": {
+    "port": 3000,
+    "host": "localhost"
+  },
+  "browser": {
+    "headless": false,
+    "timeout": 30000
+  },
+  "security": {
+    "allowedOrigins": ["*"],
+    "enableCors": true
+  }
+}
+```
+
+## Starting the Server
+
+### Basic Usage
+
+```bash
+mcpx-server
+```
+
+### With Custom Configuration
+
+```bash
+mcpx-server --config ./mcpx-config.json
+```
+
+### With Command Line Options
+
+```bash
+mcpx-server --port 3000 --headless false
+```
+
+## Server Options
+
+| Option       | Description                    | Default   |
+| ------------ | ------------------------------ | --------- |
+| `--port`     | Server port                    | 3000      |
+| `--host`     | Server host                    | localhost |
+| `--headless` | Run browser in headless mode   | false     |
+| `--timeout`  | Default timeout for operations | 30000ms   |
+
+## Environment Variables
+
+You can also configure the server using environment variables:
+
+```bash
+export MCPX_PORT=3000
+export MCPX_HOST=localhost
+export MCPX_HEADLESS=false
+mcpx-server
+```
+
+## Testing the Server
+
+Verify your server is running:
+
+```bash
+curl http://localhost:3000/health
+```
+
+Expected response:
+
+```json
+{
+  "status": "healthy",
+  "version": "1.0.0",
+  "uptime": "00:05:32"
+}
+```
+
+## Next Steps
+
+Once your server is running:
+
+1. [Set up extension](/docs/setup-extension) - Install and configure the browser extension
+2. [Start automating](/docs/start-automating) - Begin browser automation tasks
