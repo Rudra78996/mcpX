@@ -175,7 +175,7 @@ export default function Home() {
               className="w-full sm:w-auto opacity-70"
             >
               <Link
-                href="/docs"
+                href="http://docs.mcpx.tech/"
                 aria-label="Open documentation"
                 className="flex items-center gap-2"
               >
