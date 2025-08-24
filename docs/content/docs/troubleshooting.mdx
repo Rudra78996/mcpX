@@ -3,260 +3,37 @@ title: Troubleshooting
 description: Common issues and solutions for MCPX browser automation.
 ---
 
-# Troubleshooting
+## Troubleshooting
 
-Common issues and solutions when using MCPX for browser automation.
+If you run into issues with Browser MCP, try the following steps:
 
-## Installation Issues
+### Extension Issues
+- **Reload the extension**:  
+  Go to `chrome://extensions/`, turn the extension off and on, or click **Reload**.  
+- **Remove and re-add**:  
+  If reloading doesn’t work, remove the extension and install it again.  
+- **Reconnect**:  
+  Disconnect from your MCP client and connect again to refresh the session.
 
-### "command not found: mcpx-server"
+### Server Issues
+- **Check running process**:  
+  The server typically runs on port `3000`. If it’s already in use, the server may fail to start.  
+- **Kill the process**:  
+  Find and stop the process running on port `3000`.  
 
-**Problem**: The mcpx-server command is not recognized.
+On Linux/macOS:
+```bash
+  lsof -i :3000
+  kill -9 <PID>
+````
 
-**Solutions**:
-
-1. Verify Node.js installation:
-   ```bash
-   node --version
-   npm --version
-   ```
-2. Reinstall MCPX globally:
-   ```bash
-   npm uninstall -g mcpx-server
-   npm install -g mcpx-server
-   ```
-3. Check your PATH environment variable
-4. Try using npx:
-   ```bash
-   npx mcpx-server
-   ```
-
-### Extension Not Loading
-
-**Problem**: Browser extension fails to load or install.
-
-**Solutions**:
-
-1. Enable Developer mode in browser extensions
-2. Check browser compatibility (Chrome 88+, Firefox 78+)
-3. Verify file permissions on extension folder
-4. Try incognito/private mode
-5. Clear browser cache and restart
-
-## Connection Issues
-
-### Server Connection Failed
-
-**Problem**: Extension cannot connect to MCP server.
-
-**Solutions**:
-
-1. Verify server is running:
-   ```bash
-   curl http://localhost:3000/health
-   ```
-2. Check firewall settings
-3. Confirm correct port number
-4. Try different port:
-   ```bash
-   mcpx-server --port 3001
-   ```
-
-### CORS Errors
-
-**Problem**: Cross-origin request blocked errors.
-
-**Solutions**:
-
-1. Enable CORS in server config:
-   ```json
-   {
-     "security": {
-       "enableCors": true,
-       "allowedOrigins": ["*"]
-     }
-   }
-   ```
-2. Start server with CORS enabled:
-   ```bash
-   mcpx-server --enable-cors
-   ```
-
-## Browser Automation Issues
-
-### Element Not Found
-
-**Problem**: "Element not found" or "Cannot click element" errors.
-
-**Solutions**:
-
-1. Wait for page to load:
-   ```
-   Wait for the page to load completely
-   Then click the button
-   ```
-2. Use more specific selectors:
-   ```
-   Click the blue "Submit" button in the footer
-   ```
-3. Check if element is in viewport:
-   ```
-   Scroll to the submit button
-   Then click it
-   ```
-
-### Timeout Errors
-
-**Problem**: Operations timing out before completion.
-
-**Solutions**:
-
-1. Increase timeout in config:
-   ```json
-   {
-     "browser": {
-       "timeout": 60000
-     }
-   }
-   ```
-2. Use explicit waits:
-   ```
-   Wait up to 30 seconds for the page to load
-   ```
-3. Split complex operations into smaller steps
-
-### Page Load Issues
-
-**Problem**: Pages not loading or loading incorrectly.
-
-**Solutions**:
-
-1. Disable headless mode for debugging:
-   ```bash
-   mcpx-server --headless false
-   ```
-2. Clear browser cache
-3. Check network connectivity
-4. Try different user agent
-5. Disable browser extensions temporarily
-
-## Performance Issues
-
-### Slow Response Times
-
-**Problem**: Browser automation is slow or unresponsive.
-
-**Solutions**:
-
-1. Reduce browser window size
-2. Disable images and CSS:
-   ```json
-   {
-     "browser": {
-       "loadImages": false,
-       "loadCSS": false
-     }
-   }
-   ```
-3. Use headless mode for better performance
-4. Close unnecessary browser tabs
-
-### Memory Usage
-
-**Problem**: High memory consumption or crashes.
-
-**Solutions**:
-
-1. Restart browser periodically
-2. Limit concurrent operations
-3. Monitor system resources
-4. Use browser flags for memory optimization
-
-## AI Integration Issues
-
-### MCP Connection Problems
-
-**Problem**: AI application cannot connect to MCPX server.
-
-**Solutions**:
-
-1. Verify MCP server configuration:
-   ```json
-   {
-     "mcpServers": {
-       "mcpx": {
-         "command": "mcpx-server",
-         "args": ["--port", "3000"]
-       }
-     }
-   }
-   ```
-2. Check AI application logs
-3. Restart both server and AI application
-4. Verify network connectivity
-
-### Command Not Working
-
-**Problem**: AI commands not executing properly.
-
-**Solutions**:
-
-1. Use more specific language:
-   - Instead of: "Click button"
-   - Use: "Click the red 'Delete' button"
-2. Break complex tasks into steps
-3. Check server logs for errors
-4. Verify browser extension is active
-
-## Debug Mode
-
-Enable debug mode for detailed logging:
-
-### Server Debug
+On Windows:
 
 ```bash
-mcpx-server --debug --log-level verbose
+netstat -ano | findstr :3000
+taskkill /PID <PID> /F
 ```
 
-### Extension Debug
+After restarting the server and extension, try running your automation commands again.
 
-1. Open browser developer tools
-2. Go to Extensions tab
-3. Find MCPX extension
-4. Click "Inspect views: background page"
-5. Check console for error messages
-
-## Log Files
-
-Check log files for detailed error information:
-
-- **Server logs**: `~/.mcpx/logs/server.log`
-- **Extension logs**: Browser developer console
-- **AI application logs**: Application-specific location
-
-## Getting Help
-
-If you're still experiencing issues:
-
-1. **Check GitHub Issues**: [github.com/Rudra78996/mcpX/issues](https://github.com/Rudra78996/mcpX/issues)
-2. **Create New Issue**: Include:
-   - Operating system and version
-   - Browser and version
-   - MCPX version
-   - Error messages and logs
-   - Steps to reproduce
-3. **Community Support**: Join our Discord/community forums
-
-## Common Error Codes
-
-| Code | Description              | Solution                                   |
-| ---- | ------------------------ | ------------------------------------------ |
-| E001 | Server connection failed | Check server status and network            |
-| E002 | Element not found        | Wait for page load, use specific selectors |
-| E003 | Permission denied        | Check browser permissions                  |
-| E004 | Timeout exceeded         | Increase timeout or split operations       |
-| E005 | Invalid command          | Check command syntax                       |
-
----
-
-_Still need help? Don't hesitate to reach out to our community for support!_
+📬 Questions? Contact us at **[contact@mcpx.tech](mailto:contact@mcpx.tech)**.

@@ -27,7 +27,15 @@ export default function Layout({ children }: LayoutProps) {
       <body
         className={`flex flex-col min-h-screen ${inter.variable} font-sans`}
       >
-        <RootProvider>{children}</RootProvider>
+        <RootProvider
+          theme={{
+            enabled: true,
+            storageKey: "fumadocs-theme",
+            defaultTheme: "system",
+          }}
+        >
+          {children}
+        </RootProvider>
       </body>
     </html>
   );

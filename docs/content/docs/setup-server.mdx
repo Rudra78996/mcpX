@@ -1,94 +1,54 @@
 ---
 title: Set up MCP server
-description: Configure the MCPX MCP server for browser automation.
+description: Guide to configuring the Browser MCPX server with Node.js and supported MCP clients.
 ---
 
-# Set up MCP server
+## Prerequisites
 
-Configure the MCPX MCP server to enable communication between AI applications and your browser.
+### Node.js
 
-## Configuration File
+You need [**Node.js**](https://nodejs.org/) (v18 or higher) installed to use the Browser MCPX server.  
+Node.js comes bundled with **npm**, which is also required.
 
-Create a configuration file for your MCP server:
+Verify installation:
+
+```bash
+node -v
+npm -v
+```
+
+## Add MCP server
+
+Add the MCP server configuration to an AI application that supports MCP.
+
+**Example applications that support MCP:**
+
+- Cursor
+- Claude Desktop
+- Windsurf
+- VS Code
+
+## Each application requires adding the mcpX configuration in its MCP settings.
+
+## Cursor Server config
 
 ```json
 {
-  "server": {
-    "port": 3000,
-    "host": "localhost"
-  },
-  "browser": {
-    "headless": false,
-    "timeout": 30000
-  },
-  "security": {
-    "allowedOrigins": ["*"],
-    "enableCors": true
+  "mcpServers": {
+    "browser-mcpx": {
+      "command": "npx",
+      "args": ["-y", "@rpx_/mcpx@latest"]
+    }
   }
 }
 ```
 
-## Starting the Server
+---
 
-### Basic Usage
+## Next step
 
-```bash
-mcpx-server
-```
+Continue with [**Set up extension**](/docs/setup-extension) to connect the MCP server to your browser.
 
-### With Custom Configuration
+---
 
-```bash
-mcpx-server --config ./mcpx-config.json
-```
-
-### With Command Line Options
-
-```bash
-mcpx-server --port 3000 --headless false
-```
-
-## Server Options
-
-| Option       | Description                    | Default   |
-| ------------ | ------------------------------ | --------- |
-| `--port`     | Server port                    | 3000      |
-| `--host`     | Server host                    | localhost |
-| `--headless` | Run browser in headless mode   | false     |
-| `--timeout`  | Default timeout for operations | 30000ms   |
-
-## Environment Variables
-
-You can also configure the server using environment variables:
-
-```bash
-export MCPX_PORT=3000
-export MCPX_HOST=localhost
-export MCPX_HEADLESS=false
-mcpx-server
-```
-
-## Testing the Server
-
-Verify your server is running:
-
-```bash
-curl http://localhost:3000/health
-```
-
-Expected response:
-
-```json
-{
-  "status": "healthy",
-  "version": "1.0.0",
-  "uptime": "00:05:32"
-}
-```
-
-## Next Steps
-
-Once your server is running:
-
-1. [Set up extension](/docs/setup-extension) - Install and configure the browser extension
-2. [Start automating](/docs/start-automating) - Begin browser automation tasks
+📬 Questions? Contact us at **[contact@mcpx.tech](mailto:contact@mcpx.tech)**.

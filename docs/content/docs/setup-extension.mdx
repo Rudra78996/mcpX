@@ -1,123 +1,39 @@
 ---
 title: Set up extension
-description: Install and configure the MCPX browser extension.
+description: Guide to installing and connecting the Browser MCPX extension.
 ---
 
-# Set up extension
+## Install the extension
 
-Install and configure the MCPX browser extension to enable browser automation capabilities.
+Install the [**Browser MCPX extension**](https://chromewebstore.google.com/detail/fjbloajdmlfghkejmkgboceindianlge?utm_source=item-share-cb) from the Chrome Web Store (or your browser’s extension marketplace).
 
-## Installation
+---
 
-### Chrome/Edge
+## Pin the extension
 
-1. Download the extension from [GitHub Releases](https://github.com/Rudra78996/mcpX/releases)
-2. Open `chrome://extensions/`
-3. Enable "Developer mode" (toggle in top right)
-4. Click "Load unpacked"
-5. Select the downloaded extension folder
+For easy access, pin the Browser MCPX extension to your browser toolbar:
 
-### Firefox
+1. Open the extensions menu in your browser.  
+2. Locate **Browser MCPX**.  
+3. Click the pin icon to keep it visible in the toolbar.  
 
-1. Download the `.xpi` file from [GitHub Releases](https://github.com/Rudra78996/mcpX/releases)
-2. Open `about:addons`
-3. Click the gear icon ⚙️
-4. Select "Install Add-on From File"
-5. Choose the downloaded `.xpi` file
+---
 
-## Configuration
+## Connect the extension
 
-After installation, configure the extension:
+1. Click the **Browser MCPX** icon in the toolbar.  
+2. Select **Connect** to link the current browser tab to the MCP server.  
 
-### 1. Open Extension Settings
+![Connect](../../public/extension-connect.png)
 
-Click the MCPX icon in your browser toolbar, then click "Settings".
+Once connected, all browser actions will run on the active tab.
 
-### 2. Server Connection
+---
 
-Configure the connection to your MCP server:
+## Next step
 
-```
-Server URL: http://localhost:3000
-Timeout: 30000ms
-Auto-connect: enabled
-```
+Continue with [**Start automating**](/docs/start-automating) to trigger actions and automate workflows using Browser MCPX.  
 
-### 3. Security Settings
+---
 
-Set up security preferences:
-
-- **Allowed domains**: Specify which domains the extension can interact with
-- **Confirmation prompts**: Choose when to show user confirmations
-- **Debug mode**: Enable for troubleshooting
-
-## Permissions
-
-The extension requires the following permissions:
-
-- **Active Tab**: To interact with the current webpage
-- **Storage**: To save settings and state
-- **Host Permissions**: To access specified websites
-
-## Verification
-
-Test the extension setup:
-
-1. **Check connection**: The extension icon should show a green indicator
-2. **Test basic functionality**: Try opening a simple webpage
-3. **Verify server communication**: Check the extension console for any errors
-
-## Extension API
-
-The extension provides these core capabilities:
-
-### Navigation
-
-- Open URLs
-- Navigate back/forward
-- Refresh pages
-- Close tabs
-
-### Interaction
-
-- Click elements
-- Type text
-- Submit forms
-- Scroll pages
-
-### Data Extraction
-
-- Get page content
-- Extract element text
-- Capture screenshots
-- Get page metadata
-
-## Troubleshooting
-
-### Extension Not Loading
-
-1. Check browser compatibility
-2. Enable Developer mode
-3. Verify file permissions
-4. Check browser console for errors
-
-### Connection Issues
-
-1. Verify server is running
-2. Check firewall settings
-3. Confirm correct server URL
-4. Test network connectivity
-
-### Permission Errors
-
-1. Grant required permissions
-2. Reload the extension
-3. Restart the browser
-4. Check browser security settings
-
-## Next Steps
-
-With the extension configured:
-
-1. [Start automating](/docs/start-automating) - Begin browser automation tasks
-2. [Troubleshooting](/docs/troubleshooting) - Get help with common issues
+📬 Questions? Contact us at **[contact@mcpx.tech](mailto:contact@mcpx.tech)**.

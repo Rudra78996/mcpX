@@ -173,9 +173,10 @@ export default function Home() {
               variant="outline"
               size="lg"
               className="w-full sm:w-auto opacity-70"
-            >
+              >
               <Link
-                href="http://docs.mcpx.tech/"
+                target="_blank"
+                href="http://docs.mcpx.tech/docs/welcome"
                 aria-label="Open documentation"
                 className="flex items-center gap-2"
               >
