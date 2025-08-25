@@ -1,6 +1,7 @@
 ---
 title: Troubleshooting
 description: Common issues and solutions for MCPX browser automation.
+icon: AlertCircle
 ---
 
 ## Troubleshooting
@@ -8,24 +9,27 @@ description: Common issues and solutions for MCPX browser automation.
 If you run into issues with Browser MCP, try the following steps:
 
 ### Extension Issues
+
 - **Reload the extension**:  
-  Go to `chrome://extensions/`, turn the extension off and on, or click **Reload**.  
+  Go to `chrome://extensions/`, turn the extension off and on, or click **Reload**.
 - **Remove and re-add**:  
-  If reloading doesn’t work, remove the extension and install it again.  
+  If reloading doesn’t work, remove the extension and install it again.
 - **Reconnect**:  
   Disconnect from your MCP client and connect again to refresh the session.
 
 ### Server Issues
+
 - **Check running process**:  
-  The server typically runs on port `3000`. If it’s already in use, the server may fail to start.  
+  The server typically runs on port `3000`. If it’s already in use, the server may fail to start.
 - **Kill the process**:  
-  Find and stop the process running on port `3000`.  
+  Find and stop the process running on port `3000`.
 
 On Linux/macOS:
+
 ```bash
   lsof -i :3000
   kill -9 <PID>
-````
+```
 
 On Windows:
 

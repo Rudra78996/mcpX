@@ -1,9 +1,25 @@
-import { docs } from '@/.source';
-import { loader } from 'fumadocs-core/source';
+import { docs } from "@/.source";
+import { loader } from "fumadocs-core/source";
+import { createElement } from "react";
+import * as Icons from "lucide-react";
 
-// See https://fumadocs.vercel.app/docs/headless/source-api for more info
 export const source = loader({
-  // it assigns a URL to your pages
-  baseUrl: '/docs',
+  baseUrl: "/docs",
   source: docs.toFumadocsSource(),
+  icon(icon) {
+    if (!icon) return;
+
+    // Handle emoji icons
+    if (icon.length <= 2) {
+      return icon;
+    }
+
+    // Handle Lucide React icons
+    const IconComponent = Icons[icon as keyof typeof Icons];
+    if (IconComponent) {
+      return createElement(IconComponent as React.ElementType, { size: 16 });
+    }
+
+    return;
+  },
 });
