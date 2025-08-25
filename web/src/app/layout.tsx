@@ -15,7 +15,7 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "Browser MCPX",
+  title: "Browser mcpX",
   description:
     "Connect AI apps to your browser to automate tests and tasks with Browser MCPX.",
   metadataBase: new URL("https://localhost"),
@@ -25,9 +25,6 @@ export const metadata: Metadata = {
       "Connect AI apps to your browser to automate tests and tasks with Browser MCPX.",
     type: "website",
   },
-  icons:{
-    icon: "/fvc.png"
-  }
 };
 
 export default function RootLayout({
