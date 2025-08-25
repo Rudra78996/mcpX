@@ -25,6 +25,9 @@ export const metadata: Metadata = {
       "Connect AI apps to your browser to automate tests and tasks with Browser MCPX.",
     type: "website",
   },
+  icons:{
+    icon: "/fvc.png"
+  }
 };
 
 export default function RootLayout({

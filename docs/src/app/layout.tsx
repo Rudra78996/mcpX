@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "mcpX Documentation",
   description: "Complete documentation for mcpX browser automation tools.",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/fvc.png",
   },
 };
 
